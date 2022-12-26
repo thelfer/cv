@@ -1,0 +1,488 @@
+\documentclass[11pt,a4paper]{moderncv}
+
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multibib}
+\usepackage[frenchb]{babel}
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{thebibliography}{%
+  \let\origsubsection\subsection% save the original definition of \section
+  \let\subsection\section%  make \section behave like \subsection
+}
+\AfterEndEnvironment{thebibliography}{%
+  \let\subsection\origsubsection% restore the original definition of \section
+}
+
+\newcommand{\paragraph}[1]{\textbf{#1}}
+
+\makeatletter
+\newcommand\@pnumwidth{1.55em}
+\newcommand\@tocrmarg{2.55em}
+\newcommand\@dotsep{4.5}
+\makeatother
+\usepackage{titletoc}
+
+\makeatletter
+\setlength\columnsep{20pt}
+\setcounter{tocdepth}{1}
+\newcommand\contentsname{Contents}
+\newcommand\tableofcontents{%
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\section*{\contentsname}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+    \@starttoc{toc}%
+    }
+\usepackage{titletoc}
+\titlecontents*{section}[0pt]
+  {}{}{}
+  {, \itshape\thecontentspage}[\ \textbullet\ ][.]
+\renewcommand\l@subsection[2]{}
+\makeatother
+\renewcommand{\contentsname}{Principaux thèmes}
+
+% ma préférence en terme de design
+\moderncvtheme[orange]{casual}
+% d'autres valeurs possibles
+\moderncvstyle{casual}
+% Largeur de la colonne pour les dates
+\setlength{\hintscolumnwidth}{1cm}
+% Une entête classique
+\firstname{Thomas}
+\familyname{Helfer}
+
+\title{ Modélisation et simulation du comportement thermo-mécanique
+  des éléments combustibles\\ Laboratoire de simulation du combustible\\
+  (CEA DEN/DEC/SESC/LSC) }
+
+\address{Centre de Cadarache}{F-13108 Saint-Paul Lez Durance, France}
+\email{thomas.helfer@cea.fr} \extrainfo{38 ans}
+% d'autres valeurs possibles
+\phone{33+ (0)4 42 25 22 67}
+\fax{33+ (0)4 42 25 47 47}
+% \extrainfo{Docteur }
+%\mobile{06 00 00 00 00}
+\homepage{www.tfel.sourceforge.net}
+\photo[64pt][0.4pt]{img/moi.png}
+%\quote{une citation}
+
+\newcites{articles,proceedings,notes,talks,mfront}%
+         {Articles,%
+          Actes de congrès,%
+          Notes techniques,%
+          Communications orales,%
+          Publications citant MFront}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{0}
+\tableofcontents{}
+
+\section{Domaine d'activité et projet professionnel}
+
+Je m'intéresse essentiellement~:
+\begin{itemize}
+\item à la modélisation thermo-mécanique des éléments combustible au
+  sein de la plate-forme PLEIADES, ce qui couvre les aspects physiques
+  (fissuration des matériaux fragiles, grandes transformations,
+  incompressibilité) et numériques (amélioration des performances,
+  robustesse)~;
+\item à la simulation du comportement des combustibles REP en
+  situation accidentelle de type APRP ou RIA~;
+\item à la capitalisation des lois de comportements mécaniques pour
+  lesquels je travaille à mettre en place, avec les laboratoires
+  expérimentaux du CEA (DEC,DMN) et d'EDF (MMC) une méthodologie et
+  des outils communs garantissant une cohérence entre l'identification
+  des lois de comportement mécanique et leur utilisation dans les
+  codes de calcul.
+\end{itemize}
+
+J'ai été le principal développeur de \texttt{LICOS}, une application
+combustible dédiée aux éléments combustible et absorbant innovants
+ainsi qu'aux irradiations expérimentales non standard. Grâce à cette
+expérience, je me suis intéressé aux problématique de la plupart des
+filières nucléaires d'intérêt pour le CEA (REP, RNR, RNR-G). La
+qualité de \texttt{LICOS} a été saluée en interne et par les
+partenaires industriels du CEA (AREVA/EDF).
+
+En parallèle de \texttt{LICOS}, j'ai développé \texttt{MFront}, un
+outil d'intégration de connaissances matériau, qui est au coeur de la
+stratégie de mutualisation et de capitalisation de la plate-forme
+PLEIADES. Depuis sa mise en open-source en 2014, cet outil connaît un
+succès croissant bien au delà du domaine combustible, tant au CEA
+(DMN, DER, DM2S, DPC) que chez ses partenaires industriels (EDF et
+AREVA), mais aussi dans des cercles plus large que le nucléaire (CNRS,
+Airbus, Communauté européenne, etc...). \texttt{MFront} est décrit
+plus en détails ci-après.
+
+\paragraph{Points saillants}
+
+\begin{itemize}
+\item membre du groupe de travail CEA/EDF/Areva) sur \og{}~la
+  capitalisation des lois de comportement en support à la
+  qualification unitaire des codes~\fg{}.
+\item correspondant technique sur la modélisation mécanique dans la
+  plate-forme PLEIADES~;
+\item correspondant technique sur les lois de comportement gaine pour
+  le projet CRAYON~;
+\item 9 papiers publiés dans des journaux à comité de lecture~:
+  \begin{itemize}
+  \item dont 4 en tant que premier auteur
+  \item 2 papiers supplémentaires sont en cours de finition
+  \end{itemize}
+\item 51 notes techniques:
+  \begin{itemize}
+  \item dont 34 en tant que premier auteur
+  \end{itemize}
+\item 10 participations à des actes de congrès
+\item contribution directe à 7 faits marquants DEN/DEC
+\item reviewer pour Nuclear Engineering and Design.
+\end{itemize}
+
+\subsection{Modélisation et simulation des éléments combustibles et absorbants}
+
+\paragraph{La plate-forme \texttt{PLEIADES}}
+
+\begin{center}
+  \includegraphics[width=0.5\linewidth]{img/logo_pleiades2013.png}
+\end{center}
+
+\citetalks{helfer_recent_2015}
+\citeproceedings{petry_advanced_2015}
+\citeproceedings{lainet_recent_2013}
+\citetalks{helfer11:_utilis_cast3_pleiad}
+\citetalks{helfer10:_platef_pleiad}
+\citeproceedings{plancq_pleiades_2004}
+
+\paragraph{Simulation du comportement des éléments combustibles en
+  situation normale et incidentelle}
+
+\begin{center}
+  \includegraphics[width=0.4\linewidth]{img/LeSaux-071.jpg}\quad
+  \includegraphics[width=0.4\linewidth]{img/p.pdf}
+\end{center}
+
+\citearticles{guenot-delahaie_simulation_2018}
+
+\citeproceedings{blanc_characterization_2015}
+\citeproceedings{guenot-delahaie13:_state_astrid}
+\citeproceedings{lainet_recent_2013}
+
+\citearticles{sercombe_2d_2016}
+\citeproceedings{sercombe_2d_2015}
+\citearticles{sercombe_stress_2013}
+
+\paragraph{Lois de comportements mécaniques~: le générateur de
+  code \texttt{MFront}}
+
+\begin{center}
+  \includegraphics[width=0.5\linewidth]{img/mfront-en.png}
+\end{center}
+
+\texttt{MFront} couvre la plupart des applications en calcul de
+structure (quasi-statique, dynamique, petites et grandes
+transformations) et permet de décrire une grande variété de
+comportements non linéaires (plasticité, viscoplasticité,
+endommagement, etc..). Cette versabilité fait qu'on recense des
+applications au combustible, aux métaux, aux bétons, aux sols, aux
+polymères, etc... \texttt{MFront} garantit des performances numériques
+excellentes, supérieures à celles des lois natives des codes éléments
+finis usuels (\texttt{Cast3M}, \texttt{Code\_Aster},
+\texttt{Abaqus/Standard}), une simplicité d'utilisation inégalée, et
+la portabilité entre les codes des lois de comportement générées.
+
+\texttt{MFront} est aujourd'hui un élément clé de la stratégie de
+simuation du CEA et de ses partenaires. Ce produit est distribué dans
+les produits suivants:
+\begin{itemize}
+\item la plate-forme \texttt{PLEIADES}~;
+\item le code aux éléments finis \texttt{Code\_Aster}. Les lois
+  générées par \texttt{MFront} ont remplacées la plupart des lois
+  natives, moins performantes~;
+\item la plate-forme \texttt{Salomé-Méca}~;
+\item la plate-forme \texttt{MAP} (\texttt{Material Ageing
+    PlateForm})~;
+\end{itemize}
+Il peut également être téléchargé à l'adresse suivante~:
+\begin{center}
+  \url{http://www.tfel.sourceforge.net}
+\end{center}
+
+\citearticles{portelette_crystal_2018}
+\citearticles{guenot-delahaie_simulation_2018}
+\citearticles{bary_analytical_2017}
+\citeproceedings{helfer_phase_field_2017}
+\citeproceedings{helfer_mfront_2017}
+\citearticles{bary_thermoviscoelastic_2016}
+\citearticles{helfer_introducing_2015}
+\citeproceedings{petry_advanced_2015}
+\citeproceedings{helfer_implantation_2015}
+\citetalks{ramiere_acceleration_2017}
+\citetalks{helfer_material_2017}
+\citetalks{helfer_modelisation_2016}
+\citetalks{helfer16:_presen_mfron}
+\citetalks{helfer15:_presen_mfron-2}
+\citetalks{helfer15:_presen_mfron}
+\citetalks{hure14:_quelq_mfron}
+\citetalks{helfer14:_presen_mfron}
+\citetalks{helfer09:_mfron_cast3}
+
+\paragraph{L'application de conception \texttt{LICOS}}
+
+\begin{center}
+  \includegraphics[width=0.45\linewidth]{img/assemblage-sfr.png}
+  \hspace{2cm}
+  \includegraphics[width=0.25\linewidth]{img/TH.png}
+\end{center}
+
+\begin{center}
+  \includegraphics[height=0.75\linewidth,angle=-90]{img/Diamino9.png}
+\end{center}
+
+\citearticles{bejaoui17:_therm_diamin_licos}
+\citearticles{helfer_licos_2015}
+\citetalks{helfer13:_le_licos}
+\citeproceedings{zabiegone:_inser_rbc_astrid}
+\citeproceedings{bejaoui_thermomechanical_2013}
+\citeproceedings{helfer_fuel_2009}
+
+\subsection{Mécanique non linéaire des matériau}
+
+\citearticles{portelette_crystal_2018}
+\citearticles{bary_analytical_2017}
+\citeproceedings{helfer_phase_field_2017}
+\citeproceedings{helfer_mfront_2017}
+\citearticles{michel16}
+\citetalks{helfer_modelisation_2016}
+\citearticles{helfer_extension_2015}
+\citetalks{helfer15:_curren_pleiad}
+\citeproceedings{helfer_two-dimensional_2006}
+
+\paragraph{Comportement des matériaux combustible, des matériaux
+  absorbant et des matériaux de gainage}
+
+\citearticles{portelette_crystal_2018}
+\citeproceedings{michel_3d_2016}
+\citearticles{salvo_experimental_2015}
+\citearticles{salvo_experimental_2015-1}
+
+\subsection{Numérique}
+
+\citearticles{michel_new_2017}
+\citeproceedings{castelier_using_2016}
+\citearticles{ramiere_iterative_2015-1}
+
+\section{Parcours professionnel}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  {\tiny 2015-????} & Modélisation des accidents graves REP (RIA/APRP) \\
+  {\tiny 2015-????} & Correspondant technique pour l’évolution des composants mécaniques de PLEIADES \\
+  {\tiny 2015-????} & Correspondant technique pour les lois de comportement gaine du projet CRAYON \\
+  {\tiny 2013-????} & Responsable du développement de MFront \\
+  {\tiny 2013-2015} & DEC/SESC/LSC: Développement GERMINAL (éléments absorbants, composants RAMSES et thermohydraulique) \\
+  {\tiny 2009-2014} & DEC/SESC/LSC: Responsable de développement de Licos : applications pour la conception des éléments combustibles et absorbants innovants, des irradiations non standards et à l’interprétation des irradations non standards \\
+  {\tiny 2010-2008} & DEC/SESC/LSC: Responsable de dévéloppement du code de calcul CELAENO pour les éléménts combustible de la filière RNR-Gaz et le design des irradiations expérimentales associées \\
+\end{tabular}
+
+\section{Formation}
+
+\subsection{Formation initiale}
+
+\cventry{2005}{Docteur en mécaniques des solides}{École centrale de
+  Lyon}{France}{Étude de l'impact de la fissuration des combustibles
+  nucléaires oxyde sur le comportement normal et incidentel des
+  crayons combustible}{}
+
+\cventry{2002}{DEA en Sciences des Matériaux}{Université Henri
+  Poincaré (Nancy I)}{France}{}{}
+
+\cventry{2002}{Ingénieur}{École des Mines de Nancy}{France}{Spécialité
+  en science et ingénierie des matériaux}{}
+
+\subsection{Formation professionnelle}
+	
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2016 & Contrôler et améliorer la qualité numérique d'un code de calcul industriel \\
+  2015 & Animez et optimisez vos réunions\\
+  2014 & Formation Salome (GEOM/SMESH - PARAVIS - MEDCOUPLING) \\
+  2012 & Salome CAO maillage ET Paravis \\
+  2011 & ASTRID : R\&D et projet, cohérence et complétude \\
+  2010 & Les réacteurs à neutrons rapides refroidis au sodium - module général \\
+  2010 & Gérer ses émotions et renforcer sa confiance en soi, lors d'une prise de parole en public \\
+  2009 & SPIRALE - FNB niv.3 Formation Nucléaire de Base \\
+  2008 & SPIRALE - FNB niv.2 L'Electronucléaire et les Installations Nucléaires  \\
+  2008 & SPIRALE - FNB niv. 1 Introduction à l'Energie Nucléaire \\
+  2006 & Conception d'applications scientifiques hautes performances \\
+  2006 & Programmation C++ \\
+  2006 & Théorie appliquée aux réacteurs PN \\
+  2004 & École d'été MEALOR (Mécanique de l'endommagement et approche locale de la rupture)\\
+\end{tabular}
+
+\section{Activités d'enseignement, Formations}
+
+\subsection{Enseignement}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2016      & Materials science for Nuclear Energy (MaNuEn)/European Master in Nuclear Energy (EMINE) \\
+            & Non linear mechanical phenomena in fuel elements simulation (12h) \\
+  2016      & Polytech’Marseille, option \og{}~Structures et Ouvrage\fg{}, 3ème année cursus ingénieur\\
+            & Mécanique non linéaire et \texttt{Cast3M} : 13h de cours/TD. \\
+  {\tiny 2010-2015} & Materials science for Nuclear Energy (MaNuEn)/European Master in Nuclear Energy (EMINE) \\
+            & Basic modelling of a fuel rod and application to fuel element design (8h) \\
+\end{tabular}
+
+\subsection{Formations}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2016      & Formation MFront (DMN) \\
+  2016      & Formation MFront (DM2S) \\
+  2016      & Formation MFront (DEC) \\
+  2016      & Formation C++ (DEC/SESC) \\
+\end{tabular}
+
+\section{Encadrement}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2017 & Antonin Aguilar, stage Université de technologie de Troyes (6mois) : {\em Identification robuste des lois de comportement viscoplastique du combustible nucléaire oxyde UO2 des réacteurs à eau pressurisée} \\
+  2016 & Rémy Cnocquart, stage INSA-Lyon (6mois) : {\em modélisation non locale de la propagation de fissure dans le combustible nucléaire : applications à la fragmentation du combustible} \\
+  2016 & Tom Maurel, stage INSA-Lyon (6mois) : {\em modélisation du collage des pastilles de combustible nucléaire fortement irradiée au tube de gainage} \\
+  2015 & Sébastien Melin, stage Ecole Polytechnique (6 mois) : {\em modélisation de la rupture d'une gaine de crayon combustible au cours d'un accident d'injection de réactivité} \\
+  2013 & Matthieu Occelli, stage INSA-Lyon (6mois) : {\em dimensionnement des éléments absorbants du réacteur ASTRID en séisme : modélisation poutre et analyse locale par raccord poutre-massif} \\
+  2008 & Thomas Roncaglia, stage DUT (3 mois) : {\em parallélisation des modèles de la plate-forme PLEIADES} \\
+  2008 & Sébastien Muller, stage Ecole Polytechnique (6 mois) : {\em influence des fissures radiales dans la pastille combustible sur le comportement mécanique du crayon combustible, apports d’une modélisation 2D (r, \(\theta\))}  \\
+  2007 & Matthieu Turban, stage Ecole Polytechnique (6 mois) : {\em étude du comportement thermoélastique d’un fragment de pastille combustible sous irradiation : résolution par la méthode du prolongement analytique} \\
+\end{tabular}
+
+\section{Site internet}
+
+\begin{center}
+  \includegraphics[width=0.5\linewidth]{img/mfront-website.png}
+\end{center}
+
+Le site internet de \texttt{MFront}~:
+\begin{center}
+  \url{http://tfel.sourceforge.net}  
+\end{center}
+
+\section{Animation scientifique}
+
+\subsection{Club utilisateurs MFront}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2017 &Troisième journée des utilisateurs \texttt{MFront}, DIGITEO (\(\approx{}35\) participants). \\
+  & Les présentations sont accessibles sur le dépôt~: \\
+  & \url{https://github.com/thelfer/tfel-doc/tree/master/MFrontUserDays/ThirdUserDay}\\
+  2016 &Seconde journée des utilisateurs \texttt{MFront}, EDF Lab Saclay (\(\approx{}60\) participants). \\
+  & Les présentations sont accessibles sur le dépôt~: \\
+  & \url{https://github.com/thelfer/tfel-doc/tree/master/MFrontUserDays/SecondUserDay}\\
+  2015 &Première journée des utilisateurs \texttt{MFront}, CEA Cadarache (\(35\) participants). \\
+  & Les présentations sont accessibles sur le dépôt~: \\
+  & \url{https://github.com/thelfer/tfel-doc/tree/master/MFrontUserDays/FirstUserDay}\\
+\end{tabular}
+
+\section{Faits marquants}
+
+\subsection{Faits marquants DEN ayant fait l'objet d'un FLASH DEN}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2017 &	Livraison au format MFRONT de la loi EDGAR M5 v3 décrivant le comportement mécanique des gaines M5® en conditions d’accident de perte de réfrigérant primaire \\
+         
+  2014 &	La plateforme PLEIADES diffuse en Open-source le composant MFRONT \\
+\end{tabular}
+
+\subsection{Faits marquants DEN}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2013 & Application conception PLEIADES (LICOS)~: \\ 
+       & première formation « Utilisateurs » à AREVA \\
+  2012 & Livraison du Modèle LICOS-DIAMINO du DEC à DRSN/SIREN \\
+\end{tabular}
+
+\subsection{Faits marquants DEC}
+
+\begin{tabular}[htbp]{p{0.1\linewidth}p{0.9\linewidth}}
+  2018 & Modélisation des expériences menées au sur le combustible REP en conditions de transport et d'entreposage \\
+  2017 & Livraison des lois EDGAR V3 au format MFront par le DMN/SRMA \\
+  2016 & Seconde journée des utilisateurs MFront \\
+  2015 & Livraison de l’application LICOS 1.2 \\
+  2013 & Séminaire en l’honneur des 10 ans de PLEIADES \\
+\end{tabular}
+
+\bibliographystylearticles{unsrturl}
+\bibliographystyleproceedings{unsrturl}
+\bibliographystylenotes{unsrturl}
+\bibliographystyletalks{unsrturl}
+\bibliographystylemfront{unsrturl}
+
+\nocitearticles{guenot-delahaie_simulation_2018}
+\nocitearticles{michel_new_2017}
+\nocitearticles{bary_analytical_2017}
+\nocitearticles{bejaoui17:_therm_diamin_licos}
+\nocitearticles{michel16}
+\nocitearticles{bary_thermoviscoelastic_2016}
+\nocitearticles{sercombe_2d_2016}
+\nocitearticles{helfer_licos_2015}
+\nocitearticles{helfer_extension_2015}
+\nocitearticles{helfer_introducing_2015}
+\nocitearticles{ramiere_iterative_2015-1}
+\nocitearticles{salvo_experimental_2015}
+\nocitearticles{salvo_experimental_2015-1}
+\nocitearticles{sercombe_stress_2013}
+
+\nociteproceedings{*}
+\nocitenotes{*}
+\nocitetalks{*}
+\nocitemfront{*}
+
+\bibliographyarticles{bibliography}
+\bibliographyproceedings{proceedings}
+\bibliographynotes{notes}
+\bibliographytalks{talks,proceedings}
+\bibliographymfront{mfront}
+
+\end{document}
+
+% Publications
+% Thomas Helfer
+% 16 septembre 2016
+
+% # Articles de revue
+
+% - @bary_thermoviscoelastic_2016
+% - @michel_3d_2016
+% - @sercombe_2d_2016
+% - @helfer_implantation_2015
+% - @helfer_licos_2015
+% - @helfer_extension_2015
+% - @helfer_introducing_2015
+% - @ramiere_iterative_2015
+% - @salvo_experimental_2015
+% - @salvo_experimental_2015-1
+% - @sercombe_stress_2013
+
+% # Congrès
+
+% - @castelier_using_2016
+% - @helfer_recent_2015
+% - @bary_numerical_2015
+% - @blanc_characterization_2015
+% - @petry_advanced_2015
+% - @sercombe_2d_2015
+% - @lainet_recent_2013
+% - @bejaoui_thermomechanical_2013
+% - @helfer_fuel_2009
+% - @helfer_two-dimensional_2006
+% - @plancq_pleiades_2004
+
+% # Thèse
+
+% - @helfer_etude_2006
+
+% # Bibliographie
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
